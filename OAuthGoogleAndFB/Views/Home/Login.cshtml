@@ -1,0 +1,96 @@
+﻿<!--
+    The Facbook Button
+-->
+<fb:login-button scope="public_profile,email"
+                 onlogin="checkLoginState();">
+</fb:login-button>
+@*<button class="btn btnFB btn-account form-control mb-2" 
+        id="externalLoginFB">
+            <img src="~/images/account/external_logins/facebook.png" 
+                id="imgFB" 
+                alt="Log in With Facebook Button" /> Log in With Facebook
+</button>*@
+
+<div id="fb-root"></div>
+<script>
+      /*
+          The Facebook SDK for JavaScript doesn't have any standalone files that need to
+          be downloaded or installed, instead you simply need to include a short piece of
+          regular JavaScript in your HTML that will asynchronously load the SDK into your
+          pages. The async load means that it does not block loading other elements of your page.
+      */
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1307178786450762',
+        cookie     : true,
+        xfbml      : true,
+        version    : '13'
+      });
+
+      FB.AppEvents.logPageView();
+
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+<script>
+    /*
+        The first step when loading your web page is figuring out if a person is 
+        already logged into your app with Facebook login. You start that process with a 
+        call to FB.getLoginStatus. That function will trigger a call to Facebook to get the
+        login status and call your callback function with the results.
+        Taken from the sample code above, here's some of the code that's run during page load to check a 
+        person's login status:
+     */
+
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+</script>
+
+
+<script>
+    /*
+        The response object that's provided to your callback contains a number of fields:    
+    */
+    {
+        status: 'connected',
+        authResponse: {
+            accessToken: '...',
+            expiresIn:'...',
+            signedRequest:'...',
+            userID:'...'
+        }
+    }
+</script>
+
+<script>
+    /*
+        This is the callback. It calls FB.getLoginStatus() to get the most recent login state. 
+        (statusChangeCallback() is a function that's part of the example that processes the response.)    
+    */
+   // app id 1307178786450762
+   // app secret bc9d39e715b29200c40d0a1f2e1cd5a0
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+</script>
+<script async defer crossorigin="anonymous" 
+src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0&appId=1307178786450762&autoLogAppEvents=1" 
+nonce="x2GjLP0X"></script>
+
+@*
+    https://localhost/:7004/Home/FBCallBack 
+*@
+
